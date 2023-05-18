@@ -65,29 +65,11 @@ type contentSteeringConfigSpec struct {
     ServiceLocations []serviceLocationEntrySpec `json:"serviceLocations"`
 }
 
-/*
-Sample contentSteeringConfigSpec:
-
-{
-    "TTL": 100,
-    "RELOAD_URI": "http://localhost:2210/dash.dcsm",
-	"serviceLocations": [{
-			"serviceLocationId": "baseurl_2",
-			"serviceLocationUri": "https://bzhang-zencoder-test.s3.us-west-2.amazonaws.com/bbb2/"
-		},
-		{
-			"serviceLocationId": "baseurl_1",
-			"serviceLocationUri": "https://bzhang-zencoder-test.s3.us-west-2.amazonaws.com/bbb/"
-		}
-	]
-}
-*/
-
 var dashMpdFileExtension = ".mpd"
 var dashContentSteeringManifestFileExtension = ".dcsm"
 var content_steering_config_endpoint = "content_steering_config" 
 
-var remoteBaseUrl = "https://bzhang-zencoder-test.s3.us-west-2.amazonaws.com/bbb/"
+var remoteBaseUrl = "https://example.com/"
 
 var server_ip = "localhost"
 var server_port = "2210" 
@@ -100,8 +82,6 @@ const dash_throughput_query_param = "_DASH_throughput"
 var dcsm_ttl = 10 
 const DCSM_VERSION = 1 
 var content_steering_server_url = "http://" + server_addr + "/dash.dcsm"
-//var serviceLocationMap = map[string]string{"baseurl_1": "https://bzhang-zencoder-test.s3.us-west-2.amazonaws.com/bbb/",
-//                                            "baseurl_2": "https://bzhang-zencoder-test.s3.us-west-2.amazonaws.com/bbb2/"} 
 
 var serviceLocationMap []serviceLocationEntrySpec
 
@@ -116,7 +96,6 @@ func main() {
 
     fmt.Println("Steering server listening on: ", server_addr)
     http.ListenAndServe(server_addr, nil)
-    //http.ListenAndServeTLS(server_addr, "steering_server.crt", "steering_server.key", nil)
 }
 
 func resolveRemoteUrl(objUrl string) string {
